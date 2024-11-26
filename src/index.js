@@ -47,5 +47,5 @@ app.use("/api",router);
 
 
 
-app.listen(3000,()=>console.log("Estamos conectados en el puerto 3000"));
+app.listen(3000,()=>console.log(`Estamos conectados en el puerto 3002`));
 

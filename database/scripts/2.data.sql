@@ -1,3 +1,18 @@
+USE `the_bike_country`
+
+
+SET FOREIGN_KEY_CHECKS = 0;
+
+TRUNCATE TABLE ReferralSources;
+TRUNCATE TABLE Workers;
+TRUNCATE TABLE Clients;
+TRUNCATE TABLE Users_book_Packs;
+TRUNCATE TABLE Packs;
+TRUNCATE TABLE Country;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+
 INSERT INTO ReferralSources (name) VALUES 
     ('Google Search'),
     ('Friend suggestion'),
@@ -26,7 +41,7 @@ INSERT INTO Clients (name, surname, email, dni, password, phone, address, countr
     ('Ethan', 'Thompson', 'ethan.thompson@example.com', '5566772J', '1234', '70056789', 'Fifth Avenue 147', 195);
 
 
-INSERT INTO `mydb`.`Users_book_Packs` 
+INSERT INTO `Users_book_Packs` 
 (user_id, pack_id, status, application_date, message, requested_dates, source_id) 
 VALUES
     (1, 2, 'required', CURRENT_TIMESTAMP, 'Interesado en el pack premium', '2024-12-15', 1),
@@ -35,7 +50,7 @@ VALUES
     (4, 1, 'cancelled', CURRENT_TIMESTAMP, 'Cancelación del pack starter', '2024-11-25', 4),
     (5, 5, 'required', CURRENT_TIMESTAMP, 'Solicitud para el pack Ultimate', '2024-12-01', 5);
 
-INSERT INTO `mydb`.`Packs` (name, description, price, active, duration) VALUES
+INSERT INTO `Packs` (name, description, price, active, duration) VALUES
     ('Starter Pack', 'Paquete básico para nuevos usuarios. Incluye lo esencial para empezar.', 1999, 1, 30),
     ('Premium Pack', 'Paquete avanzado con funciones premium y soporte prioritario.', 4999, 1, 90),
     ('Family Pack', 'Ideal para familias. Incluye múltiples cuentas y descuentos en servicios adicionales.', 7999, 1, 180),
