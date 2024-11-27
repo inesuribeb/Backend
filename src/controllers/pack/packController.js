@@ -21,3 +21,5 @@ export const functions={
     getAll,
     getById
 }
+
+export default functions

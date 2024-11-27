@@ -1,4 +1,4 @@
-import workerModel from "../../models/workerModel"
+import workerModel from "../../models/workerModel.js"
 
 class CustomError extends Error {
     constructor(message, status) {

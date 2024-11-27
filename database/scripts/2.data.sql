@@ -13,49 +13,6 @@ TRUNCATE TABLE Country;
 SET FOREIGN_KEY_CHECKS = 1;
 
 
-INSERT INTO ReferralSources (name) VALUES 
-    ('Google Search'),
-    ('Friend suggestion'),
-    ('Repeating with you'),
-    ('An event'),
-    ('Social Media'),
-    ('Advertising'),
-    ('Other');
-
-INSERT INTO Workers (name, last_name, email, password, rol) VALUES
-    ('Ines', 'Uribe', 'inesuribeb@gmail.com', '1234', 'admin'),
-    ('Bosco', 'Barron', 'buribeb@gmail.com', '1234', 'founder'),
-    ('Ibai', 'Fradejas', 'ibaifradejas@mail.com', '1234', 'founder'),
-    ('Juan', 'Bilbao', 'juanbilbao@mail.com', '1234', 'founder');
-
-INSERT INTO Clients (name, surname, email, dni, password, phone, address, country_id) VALUES
-    ('Sofía', 'Gómez', 'sofia.gomez@example.com', '12345678A', '1234', '600123456', 'Calle Luna 45', 1),
-    ('Liam', 'Smith', 'liam.smith@example.com', '87654321B', '1234', '70098754', '10 Downing Street', 34),
-    ('Emma', 'Johnson', 'emma.johnson@example.com', '1122334C', '1234', '80056789', '221B Baker Street', 69),
-    ('Oliver', 'Brown', 'oliver.brown@example.com', '5566778D', '1234', '90034567', 'Abbey Road 123', 101),
-    ('Amelia', 'Davis', 'amelia.davis@example.com', '3344556E', '1234', '70067834', 'Sunset Blvd 456', 153),
-    ('Noah', 'Wilson', 'noah.wilson@example.com', '9988776F', '1234', '80023478', 'Broadway 789', 169),
-    ('Mia', 'Taylor', 'mia.taylor@example.com', '4455667G', '1234', '60078901', 'Oxford Street 321', 183),
-    ('Lucas', 'Martínez', 'lucas.martinez@example.com', '7766554H', '1234', '70089012', 'Gran Vía 654', 184),
-    ('Sophia', 'Anderson', 'sophia.anderson@example.com', '2233445I', '1234', '90045678', 'Champs-Élysées 987', 190),
-    ('Ethan', 'Thompson', 'ethan.thompson@example.com', '5566772J', '1234', '70056789', 'Fifth Avenue 147', 195);
-
-
-INSERT INTO `Users_book_Packs` 
-(user_id, pack_id, status, application_date, message, requested_dates, source_id) 
-VALUES
-    (1, 2, 'required', CURRENT_TIMESTAMP, 'Interesado en el pack premium', '2024-12-15', 1),
-    (2, 3, 'approved', CURRENT_TIMESTAMP, 'Aprobado para el pack familiar', '2024-12-10', 2),
-    (3, 4, 'completed', CURRENT_TIMESTAMP, 'Uso del pack de viaje completado', '2024-11-20', 3),
-    (4, 1, 'cancelled', CURRENT_TIMESTAMP, 'Cancelación del pack starter', '2024-11-25', 4),
-    (5, 5, 'required', CURRENT_TIMESTAMP, 'Solicitud para el pack Ultimate', '2024-12-01', 5);
-
-INSERT INTO `Packs` (name, description, price, active, duration) VALUES
-    ('Starter Pack', 'Paquete básico para nuevos usuarios. Incluye lo esencial para empezar.', 1999, 1, 30),
-    ('Premium Pack', 'Paquete avanzado con funciones premium y soporte prioritario.', 4999, 1, 90),
-    ('Family Pack', 'Ideal para familias. Incluye múltiples cuentas y descuentos en servicios adicionales.', 7999, 1, 180),
-    ('Travel Pack', 'Paquete diseñado para viajeros frecuentes. Incluye acceso a herramientas y recursos útiles.', 2999, 1, 60),
-    ('Ultimate Pack', 'Paquete completo con acceso ilimitado a todas las funcionalidades y soporte 24/7.', 9999, 1, 365);
 
 INSERT INTO Country (name, iso_code, prefix) VALUES
     ('Afghanistan', 'AF', '+93'),
@@ -248,3 +205,48 @@ INSERT INTO Country (name, iso_code, prefix) VALUES
     ('Yemen', 'YE', '+967'),
     ('Zambia', 'ZM', '+260'),
     ('Zimbabwe', 'ZW', '+263');
+
+INSERT INTO ReferralSources (name) VALUES 
+    ('Google Search'),
+    ('Friend suggestion'),
+    ('Repeating with you'),
+    ('An event'),
+    ('Social Media'),
+    ('Advertising'),
+    ('Other');
+
+INSERT INTO Workers (name, last_name, email, password, rol) VALUES
+    ('Ines', 'Uribe', 'inesuribeb@gmail.com', '1234', 'admin'),
+    ('Bosco', 'Barron', 'buribeb@gmail.com', '1234', 'founder'),
+    ('Ibai', 'Fradejas', 'ibaifradejas@mail.com', '1234', 'founder'),
+    ('Juan', 'Bilbao', 'juanbilbao@mail.com', '1234', 'founder');
+
+INSERT INTO Clients (name, surname, email, dni, password, phone, address, country_id) VALUES
+    ('Sofía', 'Gómez', 'sofia.gomez@example.com', '12345678A', '1234', '600123456', 'Calle Luna 45', 1),
+    ('Liam', 'Smith', 'liam.smith@example.com', '87654321B', '1234', '70098754', '10 Downing Street', 34),
+    ('Emma', 'Johnson', 'emma.johnson@example.com', '1122334C', '1234', '80056789', '221B Baker Street', 69),
+    ('Oliver', 'Brown', 'oliver.brown@example.com', '5566778D', '1234', '90034567', 'Abbey Road 123', 101),
+    ('Amelia', 'Davis', 'amelia.davis@example.com', '3344556E', '1234', '70067834', 'Sunset Blvd 456', 153),
+    ('Noah', 'Wilson', 'noah.wilson@example.com', '9988776F', '1234', '80023478', 'Broadway 789', 169),
+    ('Mia', 'Taylor', 'mia.taylor@example.com', '4455667G', '1234', '60078901', 'Oxford Street 321', 153),
+    ('Lucas', 'Martínez', 'lucas.martinez@example.com', '7766554H', '1234', '70089012', 'Gran Vía 654', 154),
+    ('Sophia', 'Anderson', 'sophia.anderson@example.com', '2233445I', '1234', '90045678', 'Champs-Élysées 987', 130),
+    ('Ethan', 'Thompson', 'ethan.thompson@example.com', '5566772J', '1234', '70056789', 'Fifth Avenue 147', 115);
+
+
+INSERT INTO Packs (name, description, price, active, duration) VALUES
+    ('Starter Pack', 'Paquete básico para nuevos usuarios. Incluye lo esencial para empezar.', 1999, 1, 30),
+    ('Premium Pack', 'Paquete avanzado con funciones premium y soporte prioritario.', 4999, 1, 90),
+    ('Family Pack', 'Ideal para familias. Incluye múltiples cuentas y descuentos en servicios adicionales.', 7999, 1, 180),
+    ('Travel Pack', 'Paquete diseñado para viajeros frecuentes. Incluye acceso a herramientas y recursos útiles.', 2999, 1, 60),
+    ('Ultimate Pack', 'Paquete completo con acceso ilimitado a todas las funcionalidades y soporte 24/7.', 9999, 1, 365);
+
+
+INSERT INTO Users_book_Packs
+(user_id, pack_id, status, application_date, message, requested_dates, source_id) 
+VALUES
+    (1, 2, 'required', CURRENT_TIMESTAMP, 'Interesado en el pack premium', '2024-12-15', 1),
+    (2, 3, 'approved', CURRENT_TIMESTAMP, 'Aprobado para el pack familiar', '2024-12-10', 2),
+    (3, 4, 'completed', CURRENT_TIMESTAMP, 'Uso del pack de viaje completado', '2024-11-20', 3),
+    (4, 1, 'cancelled', CURRENT_TIMESTAMP, 'Cancelación del pack starter', '2024-11-25', 4),
+    (5, 5, 'required', CURRENT_TIMESTAMP, 'Solicitud para el pack Ultimate', '2024-12-01', 5);

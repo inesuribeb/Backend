@@ -1,7 +1,16 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/sequelize.js";
+import Client from './clientModel.js';
+import Pack from './packModel.js';
+import Source from './refSourcesModel.js';
 
-const UserPacks = sequelize.define('User_book_Packs', {
+const UserPacks = sequelize.define('Users_book_Packs', {
+    id:{
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull:false,
+        primaryKey:true,
+        autoIncrement:true
+    },
     user_id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
@@ -34,7 +43,9 @@ const UserPacks = sequelize.define('User_book_Packs', {
         defaultValue: "required"
     },
     application_date:{
-        type: DataTypes.TIMESTAMP
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+        allowNull: false
     },
     message:{
         type: DataTypes.STRING,
@@ -49,18 +60,21 @@ const UserPacks = sequelize.define('User_book_Packs', {
 
 UserPacks.belongsTo(Client, {
     foreignKey: 'user_id',
+    as: 'Client',
     onDelete: 'NO ACTION',
     onUpdate: 'NO ACTION'
 });
 
 UserPacks.belongsTo(Pack, {
     foreignKey: 'pack_id',
+    as: 'Pack',
     onDelete: 'NO ACTION',
     onUpdate: 'NO ACTION'
 });
 
 UserPacks.belongsTo(Source, {
     foreignKey: 'source_id',
+    as: 'Source',
     onDelete: 'NO ACTION',
     onUpdate: 'NO ACTION'
 });

@@ -1,6 +1,7 @@
-import clientModel from "../../models/clientModel"
-import countryModel from "../../models/countryModel"
+import clientModel from "../../models/clientModel.js"
+import countryModel from "../../models/countryModel.js"
 
+// Todos los clientes
 async function showClients() {
     const clients = await clientModel.findAll({
         include: countryModel
@@ -13,8 +14,9 @@ async function showClients() {
     return cleanClientsWithCountry(clients);
 }
 
-function cleanClientsWithCountry(clients) {
-    return clients.map(client => {
+
+function cleanClientsWithCountry(client) {
+    return client.map(client => {
         const options = {
             year: 'numeric',
             month: 'long',
@@ -40,8 +42,48 @@ function cleanClientsWithCountry(clients) {
     });
 }
 
+
+
+
+// Un solo cliente
+async function getClientById(user_id) {
+    const client = await clientModel.findByPk(user_id, {
+        include: countryModel
+    });
+    if(!client){
+        throw new Error('Client not found', 404);
+    }
+    
+    return cleanClientWithCountry(client);
+}
+
+
+function cleanClientWithCountry(client) {
+    return {
+        user_id: client.user_id,
+        name: client.name,
+        surname: client.surname,
+        email: client.email,
+        phone: client.phone,
+        address: client.address,
+        register_date: new Date(client.register_date).toLocaleDateString('es-ES', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        }),
+        country: {
+            name: client.Country.name,
+            iso_code: client.Country.iso_code,
+            prefix: client.Country.prefix
+        }
+    };
+}
+
+
+
 export const functions = {
-    showClients
+    showClients,
+    getClientById
 }
 
 export default functions;

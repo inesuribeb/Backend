@@ -1,6 +1,5 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/sequelize.js";
-import Country from './CountryModel.js';
 
 const Pack = sequelize.define('Packs', {
     pack_id:{
@@ -32,15 +31,7 @@ const Pack = sequelize.define('Packs', {
     }
 })
 
-Client.belongsTo(Country, { 
-    foreignKey: 'country_id', 
-    onDelete: 'NO ACTION', 
-    onUpdate: 'NO ACTION' 
-});
 
-Country.hasMany(Client, { 
-    foreignKey: 'country_id' 
-});
 
-export default Worker;
+export default Pack;
 

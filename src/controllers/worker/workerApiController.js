@@ -1,4 +1,4 @@
-import workerController from "./workerController"
+import workerController from "./workerController.js"
 
 async function getAllWorkers(req, res) {
     try {
