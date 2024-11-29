@@ -12,7 +12,7 @@ Este proyecto constituye la lógica de negocio de una empresa de turismo premium
   - `clients_book_packs`  
   - `referral_sources`
  
-  - **Conversión a API JSON**:  
+- **Conversión a API JSON**:  
   Toda la información almacenada en la base de datos está preparada para convertirse en endpoints JSON accesibles a través de la API.  
 
 - **Tecnologías utilizadas**:  
