@@ -2,7 +2,7 @@
 
 Este proyecto constituye la lógica de negocio de una empresa de turismo premium especializada en ciclismo. Su objetivo es gestionar datos relacionados con clientes, países, trabajadores, paquetes turísticos y fuentes de referencia, proporcionando una API JSON para ser consumida por el frontend.  
 
-## **Características del Proyecto**  
+## 🔧 **Características del Proyecto**  
 - **Base de datos**:  
   Construida con MySQL y organizada en las siguientes tablas:  
   - `client`  
@@ -23,12 +23,12 @@ Este proyecto constituye la lógica de negocio de una empresa de turismo premium
   - **Bcrypt**: Cifrado de contraseñas.  
   - **JavaScript**: Lenguaje principal para toda la lógica de negocio.
   - 
-## **Instalación y Uso**  
+## ⬇️ **Instalación y Uso**  
 
 1. Clonar este repositorio:  
    ```bash
-   git clone [URL del repositorio]
-   cd [nombre del proyecto]
+   git clone git@github.com:inesuribeb/The-Bike-Country.git
+   cd The-Bike-Country
 
 2. Instalar dependencias:
    ```bash
@@ -36,17 +36,17 @@ Este proyecto constituye la lógica de negocio de una empresa de turismo premium
 
 3. Configurar variables de entorno:
    ```bash
-   DB_HOST=[host de la base de datos]
-   DB_USER=[usuario de la base de datos]
-   DB_PASSWORD=[contraseña de la base de datos]
-   DB_NAME=[nombre de la base de datos]
-   JWT_SECRET=[clave secreta para JWT]
+   DB_HOST=
+   DB_USER=
+   DB_PASSWORD=
+   DB_NAME=
+   JWT_SECRET=
 
 4. Iniciar el servidor:
    ```bash
    npm start
 
-## **Endpoints Principales**  
+## 🚀 **Endpoints Principales**  
 
 ### **Autenticación**  
 - `POST /auth/login`  
@@ -54,24 +54,27 @@ Este proyecto constituye la lógica de negocio de una empresa de turismo premium
 
 ### **Clientes**  
 - `GET /clients`  
-- `POST /clients`  
+- `POST /clients`
+- `PUT /clients/:id` 
+- `DELETE /clients/:id` 
 
 ### **Paquetes**  
 - `GET /packs`  
-- `POST /packs`  
+- `POST /packs`
+- `PUT /packs/:id` - Actualizar paquete (solo admin)  
+- `DELETE /packs/:id` - Eliminar paquete (solo admin)   
 
-Más detalles sobre los endpoints están documentados en la sección de [documentación de la API](#).  
 
 ---
 
-## **Próximos Pasos**  
+## 🔜 **Próximos Pasos**  
 - Desarrollo del frontend consumiendo esta API.  
 - Optimización de la lógica de negocio.  
 - Implementación de pruebas unitarias y de integración.  
 
 ---
 
-## **Contribuciones**  
+## 🤝 **Contribuciones**  
 ¡Contribuciones y sugerencias son bienvenidas!  
 Si encuentras un error o tienes una idea para mejorar este proyecto, abre un **issue** o envía un **pull request**.
 
