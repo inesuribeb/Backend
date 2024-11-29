@@ -1,7 +1,10 @@
 import clientModel from "../../models/clientModel.js"
 import countryModel from "../../models/countryModel.js"
+import bcrypt from '../../config/bcrypt.js';
 
-// Todos los clientes
+
+
+// Ver todos los clientes
 async function showClients() {
     const clients = await clientModel.findAll({
         include: countryModel
@@ -13,7 +16,6 @@ async function showClients() {
 
     return cleanClientsWithCountry(clients);
 }
-
 
 function cleanClientsWithCountry(client) {
     return client.map(client => {
@@ -45,7 +47,7 @@ function cleanClientsWithCountry(client) {
 
 
 
-// Un solo cliente
+// Ver un solo cliente
 async function getClientById(user_id) {
     const client = await clientModel.findByPk(user_id, {
         include: countryModel
@@ -56,7 +58,6 @@ async function getClientById(user_id) {
     
     return cleanClientWithCountry(client);
 }
-
 
 function cleanClientWithCountry(client) {
     return {
@@ -79,11 +80,89 @@ function cleanClientWithCountry(client) {
     };
 }
 
+// Localizar un cliente por email
+async function getByEmail(email) {
+    const client = await clientModel.findOne({
+        where: { email },
+        include: countryModel
+    });
+    return client;
+ }
+
+
+// Crear cliente
+async function createClient(name, surname, email, phone, password, dni, address, country_id) {
+    
+    const existingClient = await clientModel.findOne({ where: { email } });
+    if (existingClient) {
+        throw new Error('Email already exists');
+    }
+  
+    const existingDNI = await clientModel.findOne({ where: { dni } });
+    if (existingDNI) {
+        throw new Error('DNI already exists');
+    }
+ 
+    const hashedPassword = await bcrypt.hash(password, 10);
+ 
+    const newClient = await clientModel.create({
+        name,
+        surname, 
+        email,
+        phone,
+        password: hashedPassword,
+        dni,
+        address,
+        country_id
+    });
+ 
+    return newClient;
+ }
+
+// Actualizar cliente
+ async function updatePersonalData(user_id, name, surname, email, phone, password, dni, address, country_id) {
+    const client = await clientModel.findByPk(user_id);
+    if(!client){
+        throw new Error('Client not found');
+    }
+   
+    if (email !== client.email) {
+        const existingEmail = await clientModel.findOne({ where: { email }});
+        if(existingEmail) throw new Error('Email already exists');
+    }
+
+    if (dni !== client.dni) {
+        const existingDNI = await clientModel.findOne({ where: { dni }});
+        if(existingDNI) throw new Error('DNI already exists');
+    }
+
+    if (password) {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        client.password = hashedPassword;
+    }
+
+    Object.assign(client, { name, surname, email, phone, dni, address, country_id });
+    await client.save();
+    return client;
+}
+
+
+// Borrar cliente
+async function removeClientProfile(user_id) {
+    const client = await clientModel.findByPk(user_id);
+    if(!client) throw new Error('Client not found');
+    await client.destroy();
+    return client;
+}
+
+
 
 
 export const functions = {
     showClients,
-    getClientById
+    getClientById,
+    getByEmail,
+    createClient
 }
 
 export default functions;

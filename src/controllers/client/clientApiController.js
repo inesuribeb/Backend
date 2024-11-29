@@ -40,6 +40,48 @@ async function showClientById(req, res) {
     }
 }
 
+//crear Cliente 
+async function createClientAPI(req, res) {
+    try {
+        const { name, surname, email, phone, password, dni, address, country_id } = req.body;
+ 
+        if (!name || !surname || !email || !phone || !password || !dni || !address || !country_id) {
+            return res.status(400).json({
+                success: false,
+                message: 'All fields are required'
+            });
+        }
+ 
+        const newClient = await clientController.createClient(
+            name, 
+            surname, 
+            email, 
+            phone,
+            password,
+            dni,
+            address,
+            country_id
+        );
+ 
+        res.status(201).json({
+            success: true,
+            data: newClient
+        });
+ 
+    } catch (error) {
+        if (error.message === 'Email already exists' || error.message === 'DNI already exists') {
+            return res.status(400).json({
+                success: false,
+                message: error.message
+            });
+        }
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+ }
+
 export const functions = {
     showClients,
     showClientById
