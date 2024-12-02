@@ -31,9 +31,50 @@ async function getWorkerById(req, res) {
     }
 }
 
+// Crear trabajador
+async function createWorkerAPI(req, res) {
+    try {
+        const { name, last_name, email, password, rol } = req.body;
+
+        if (!name || !last_name || !email || !password || !rol) {
+            return res.status(400).json({
+                success: false,
+                message: 'All fields are required'
+            });
+        }
+
+        const newWorker = await workerController.createWorker(
+            name,
+            last_name,
+            email,
+            password,
+            rol
+        );
+
+        res.status(201).json({
+            success: true,
+            data: newWorker
+        });
+
+    } catch (error) {
+        if (error.message === 'Email already exists') {
+            return res.status(400).json({
+                success: false,
+                message: error.message
+            });
+        }
+
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+}
+
 export const functions = {
     getAllWorkers,
-    getWorkerById
+    getWorkerById,
+    createWorkerAPI
 }
 
 export default functions;

@@ -1,4 +1,6 @@
 import workerModel from "../../models/workerModel.js"
+import bcrypt from '../../config/bcrypt.js';
+
 
 class CustomError extends Error {
     constructor(message, status) {
@@ -29,9 +31,31 @@ async function getById(id){
     return worker; 
 }
 
+// Crear trabajador
+async function createWorker(name, last_name, email, password, rol) {
+    
+    const existingWorker = await workerModel.findOne({ where: { email } });
+    if (existingWorker) {
+        throw new Error('Email already exists');
+    }
+ 
+    const hashedPassword = await bcrypt.hash(password, 10);
+ 
+    const newWorker = await workerModel.create({
+        name,
+        last_name, 
+        email,
+        password: hashedPassword,
+        rol
+    });
+ 
+    return newWorker;
+ }
+
 export const functions={
     getAll,
-    getById
+    getById,
+    createWorker
 }
 
 export default functions

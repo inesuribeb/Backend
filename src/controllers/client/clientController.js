@@ -33,6 +33,7 @@ function cleanClientsWithCountry(client) {
             surname: client.surname,
             email: client.email,
             phone: client.phone,
+            dni: client.dni,
             address: client.address,
             register_date: formatedDate,
             country: {
@@ -66,6 +67,7 @@ function cleanClientWithCountry(client) {
         surname: client.surname,
         email: client.email,
         phone: client.phone,
+        dni: client.dni,
         address: client.address,
         register_date: new Date(client.register_date).toLocaleDateString('es-ES', {
             year: 'numeric',
@@ -162,7 +164,9 @@ export const functions = {
     showClients,
     getClientById,
     getByEmail,
-    createClient
+    createClient,
+    updatePersonalData,
+    removeClientProfile
 }
 
 export default functions;

@@ -15,3 +15,5 @@ export {
     hashPassword,
     verifyPassword
 }
+
+export default bcrypt;
