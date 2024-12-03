@@ -71,10 +71,63 @@ async function createWorkerAPI(req, res) {
     }
 }
 
+
+// Actualizar Worker
+async function updateWorkerAPI(req, res) {
+    try {
+        const worker_id = req.params.id;
+        const { name, last_name, email, password, rol } = req.body;
+ 
+        // Validar campos requeridos (excluyendo password que es opcional)
+        if (!name || !last_name || !email || !rol) {
+            return res.status(400).json({
+                success: false,
+                message: 'All required fields must be provided'
+            });
+        }
+ 
+        const updatedWorker = await workerController.updateWorker(
+            worker_id,
+            name,
+            last_name,
+            email,
+            password,
+            rol
+        );
+ 
+        res.status(200).json({
+            success: true,
+            data: updatedWorker
+        });
+ 
+    } catch (error) {
+        if (error.message === 'Worker not found') {
+            return res.status(404).json({
+                success: false,
+                message: error.message
+            });
+        }
+        
+        if (error.message === 'Email already exists') {
+            return res.status(400).json({
+                success: false,
+                message: error.message
+            });
+        }
+ 
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+ }
+
+
 export const functions = {
     getAllWorkers,
     getWorkerById,
-    createWorkerAPI
+    createWorkerAPI,
+    updateWorkerAPI
 }
 
 export default functions;

@@ -52,10 +52,33 @@ async function createWorker(name, last_name, email, password, rol) {
     return newWorker;
  }
 
+ // Actualizar Worker
+ async function updateWorker(worker_id, name, last_name, email, password, rol) {
+    const worker = await workerModel.findByPk(worker_id);
+    if(!worker){
+        throw new Error('Worker not found');
+    }
+   
+    if (email !== worker.email) {
+        const existingEmail = await workerModel.findOne({ where: { email }});
+        if(existingEmail) throw new Error('Email already exists');
+    }
+
+    if (password) {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        worker.password = hashedPassword;
+    }
+
+    Object.assign(worker, { name, last_name, email, rol });
+    await worker.save();
+    return worker;
+}
+
 export const functions={
     getAll,
     getById,
-    createWorker
+    createWorker,
+    updateWorker
 }
 
 export default functions
