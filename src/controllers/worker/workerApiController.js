@@ -122,12 +122,40 @@ async function updateWorkerAPI(req, res) {
     }
  }
 
+ //Borrar Worker
+ async function deleteWorkerAPI(req, res) {
+    try {
+        const { id } = req.params;
+
+        await workerController.deleteWorker(id);
+
+        res.status(200).json({
+            success: true,
+            message: 'Worker deleted successfully'
+        });
+
+    } catch (error) {
+        if (error.message === 'Worker not found') {
+            return res.status(404).json({
+                success: false,
+                message: error.message
+            });
+        }
+
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+}
+
 
 export const functions = {
     getAllWorkers,
     getWorkerById,
     createWorkerAPI,
-    updateWorkerAPI
+    updateWorkerAPI,
+    deleteWorkerAPI
 }
 
 export default functions;

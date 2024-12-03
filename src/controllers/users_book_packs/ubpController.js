@@ -183,13 +183,62 @@ async function cancelReservation(id, user_id, pack_id) {
     });
 }
 
+// Actualizar reserva para que el worker apruebe, cancele, o complete la reserva
+async function updateReservationStatus(id, user_id, pack_id, newStatus) {
+    const validStatuses = ["required", "approved", "completed", "cancelled"];
+    if (!validStatuses.includes(newStatus)) {
+        throw new Error('Invalid status');
+    }
+
+    const reservation = await userBooksModel.findOne({
+        where: {
+            id,
+            user_id,
+            pack_id
+        }
+    });
+
+    if (!reservation) {
+        throw new Error('Reservation not found');
+    }
+
+    if (reservation.status === 'completed') {
+        throw new Error('Cannot change status of a completed reservation');
+    }
+
+    if (reservation.status === 'cancelled') {
+        throw new Error('Cannot change status of a cancelled reservation');
+    }
+
+    if (newStatus === 'completed' && reservation.status !== 'approved') {
+        throw new Error('Reservation must be approved before marking as completed');
+    }
+
+    reservation.status = newStatus;
+    await reservation.save();
+
+    return await userBooksModel.findOne({
+        where: {
+            id,
+            user_id,
+            pack_id
+        },
+        include: [
+            { model: clientModel, as: 'Client' },
+            { model: packModel, as: 'Pack' },
+            { model: refSourcesModel, as: 'Source' }
+        ]
+    });
+}
+
 
 
  export const functions={
     showReservations,
     getReservationById,
     createReservation,
-    cancelReservation
+    cancelReservation,
+    updateReservationStatus
  }
 
  export default functions

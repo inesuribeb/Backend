@@ -122,13 +122,66 @@ async function showReservationById(req, res) {
     }
  }
 
+ // Actualizar reserva para que el worker apruebe, cancele, o complete la reserva
+ async function updateReservationStatusAPI(req, res) {
+    try {
+        const { id } = req.params;
+        const { user_id, pack_id, newStatus } = req.body;
+
+        // Validar que tenemos todos los datos necesarios
+        if (!id || !user_id || !pack_id || !newStatus) {
+            return res.status(400).json({
+                success: false,
+                message: 'Missing required fields'
+            });
+        }
+
+        const updatedReservation = await ubpController.updateReservationStatus(
+            id,
+            user_id,
+            pack_id,
+            newStatus
+        );
+
+        res.status(200).json({
+            success: true,
+            message: `Reservation status updated to ${newStatus} successfully`,
+            data: updatedReservation
+        });
+
+    } catch (error) {
+        if (error.message === 'Reservation not found') {
+            return res.status(404).json({
+                success: false,
+                message: error.message
+            });
+        }
+
+        if (error.message === 'Invalid status' || 
+            error.message === 'Cannot change status of a completed reservation' ||
+            error.message === 'Cannot change status of a cancelled reservation' ||
+            error.message === 'Reservation must be approved before marking as completed') {
+            return res.status(400).json({
+                success: false,
+                message: error.message
+            });
+        }
+
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+}
+
 
 
 export const functions={
     getAllReservations,
     showReservationById,
     createReservationAPI,
-    cancelReservationAPI
+    cancelReservationAPI,
+    updateReservationStatusAPI
 }
 
 export default functions

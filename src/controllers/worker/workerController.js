@@ -74,11 +74,24 @@ async function createWorker(name, last_name, email, password, rol) {
     return worker;
 }
 
+// Borrar worker
+async function deleteWorker(worker_id) {
+    const worker = await workerModel.findByPk(worker_id);
+    
+    if (!worker) {
+        throw new Error('Worker not found');
+    }
+
+    await worker.destroy();
+    return { message: 'Worker deleted successfully' };
+}
+
 export const functions={
     getAll,
     getById,
     createWorker,
-    updateWorker
+    updateWorker,
+    deleteWorker
 }
 
 export default functions
