@@ -11,14 +11,15 @@ const verifyToken = (req, res) => {
 }
 
 // Middleware para verificar los roles
-const checkRole = (allowedRole) => async (req, res, next) => {
+const checkRole = (allowedRoles) => async (req, res, next) => {
     try {
+        const  client_id =req.params.id;
         const verified = verifyToken(req, res);
         if(verified.error) {
             return res.status(401).json({ error: "jwt token not correct" });
         }
         
-        if(!verified.rol || verified.rol !== allowedRole) {
+        if((client_id !== verified.user_id)&& (!verified.rol || !allowedRoles.includes(verified.rol))) {
             return res.status(403).json({ error: "not allowed" });
         }
         
@@ -29,6 +30,8 @@ const checkRole = (allowedRole) => async (req, res, next) => {
     }
 }
 
-export const isAdmin = checkRole('admin');
-export const isFounder = checkRole('founder');
-export const isClient = checkRole('client');
+export const isAdmin = checkRole(['admin']);
+export const isFounder = checkRole(['founder']);
+export const isClient = checkRole(['client']);
+export const isWorker = checkRole(['admin', 'founder']);
+export const allAllowed = checkRole(['admin', 'founder', 'client']);
