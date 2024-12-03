@@ -216,22 +216,22 @@ INSERT INTO ReferralSources (name) VALUES
     ('Other');
 
 INSERT INTO Workers (name, last_name, email, password, rol) VALUES
-    ('Ines', 'Uribe', 'inesuribeb@gmail.com', '1234', 'admin'),
-    ('Bosco', 'Barron', 'buribeb@gmail.com', '1234', 'founder'),
-    ('Ibai', 'Fradejas', 'ibaifradejas@mail.com', '1234', 'founder'),
-    ('Juan', 'Bilbao', 'juanbilbao@mail.com', '1234', 'founder');
+    ('Ines', 'Uribe', 'inesuribeb@gmail.com', '$2a$10$wikYqklu1hy0sFFJ1Hu81eidrFoAiP5wNvvQUgD0t5plLmI86o6/W', 'admin'),
+    ('Bosco', 'Barron', 'buribeb@gmail.com', '$2a$10$wikYqklu1hy0sFFJ1Hu81eidrFoAiP5wNvvQUgD0t5plLmI86o6/W', 'founder'),
+    ('Ibai', 'Fradejas', 'ibaifradejas@mail.com', '$2a$10$wikYqklu1hy0sFFJ1Hu81eidrFoAiP5wNvvQUgD0t5plLmI86o6/W', 'founder'),
+    ('Juan', 'Bilbao', 'juanbilbao@mail.com', '$2a$10$wikYqklu1hy0sFFJ1Hu81eidrFoAiP5wNvvQUgD0t5plLmI86o6/W', 'founder');
 
 INSERT INTO Clients (name, surname, email, dni, password, phone, address, country_id) VALUES
-    ('Sofía', 'Gómez', 'sofia.gomez@example.com', '12345678A', '1234', '600123456', 'Calle Luna 45', 1),
-    ('Liam', 'Smith', 'liam.smith@example.com', '87654321B', '1234', '70098754', '10 Downing Street', 34),
-    ('Emma', 'Johnson', 'emma.johnson@example.com', '1122334C', '1234', '80056789', '221B Baker Street', 69),
-    ('Oliver', 'Brown', 'oliver.brown@example.com', '5566778D', '1234', '90034567', 'Abbey Road 123', 101),
-    ('Amelia', 'Davis', 'amelia.davis@example.com', '3344556E', '1234', '70067834', 'Sunset Blvd 456', 153),
-    ('Noah', 'Wilson', 'noah.wilson@example.com', '9988776F', '1234', '80023478', 'Broadway 789', 169),
-    ('Mia', 'Taylor', 'mia.taylor@example.com', '4455667G', '1234', '60078901', 'Oxford Street 321', 153),
-    ('Lucas', 'Martínez', 'lucas.martinez@example.com', '7766554H', '1234', '70089012', 'Gran Vía 654', 154),
-    ('Sophia', 'Anderson', 'sophia.anderson@example.com', '2233445I', '1234', '90045678', 'Champs-Élysées 987', 130),
-    ('Ethan', 'Thompson', 'ethan.thompson@example.com', '5566772J', '1234', '70056789', 'Fifth Avenue 147', 115);
+    ('Sofía', 'Gómez', 'sofia.gomez@example.com', '12345678A', '$2a$10$wikYqklu1hy0sFFJ1Hu81eidrFoAiP5wNvvQUgD0t5plLmI86o6/W', '600123456', 'Calle Luna 45', 1),
+    ('Liam', 'Smith', 'liam.smith@example.com', '87654321B', '$2a$10$wikYqklu1hy0sFFJ1Hu81eidrFoAiP5wNvvQUgD0t5plLmI86o6/W', '70098754', '10 Downing Street', 34),
+    ('Emma', 'Johnson', 'emma.johnson@example.com', '1122334C', '$2a$10$wikYqklu1hy0sFFJ1Hu81eidrFoAiP5wNvvQUgD0t5plLmI86o6/W', '80056789', '221B Baker Street', 69),
+    ('Oliver', 'Brown', 'oliver.brown@example.com', '5566778D', '$2a$10$wikYqklu1hy0sFFJ1Hu81eidrFoAiP5wNvvQUgD0t5plLmI86o6/W', '90034567', 'Abbey Road 123', 101),
+    ('Amelia', 'Davis', 'amelia.davis@example.com', '3344556E', '$2a$10$wikYqklu1hy0sFFJ1Hu81eidrFoAiP5wNvvQUgD0t5plLmI86o6/W', '70067834', 'Sunset Blvd 456', 153),
+    ('Noah', 'Wilson', 'noah.wilson@example.com', '9988776F', '$2a$10$wikYqklu1hy0sFFJ1Hu81eidrFoAiP5wNvvQUgD0t5plLmI86o6/W', '80023478', 'Broadway 789', 169),
+    ('Mia', 'Taylor', 'mia.taylor@example.com', '4455667G', '$2a$10$wikYqklu1hy0sFFJ1Hu81eidrFoAiP5wNvvQUgD0t5plLmI86o6/W', '60078901', 'Oxford Street 321', 153),
+    ('Lucas', 'Martínez', 'lucas.martinez@example.com', '7766554H', '$2a$10$wikYqklu1hy0sFFJ1Hu81eidrFoAiP5wNvvQUgD0t5plLmI86o6/W', '70089012', 'Gran Vía 654', 154),
+    ('Sophia', 'Anderson', 'sophia.anderson@example.com', '2233445I', '$2a$10$wikYqklu1hy0sFFJ1Hu81eidrFoAiP5wNvvQUgD0t5plLmI86o6/W', '90045678', 'Champs-Élysées 987', 130),
+    ('Ethan', 'Thompson', 'ethan.thompson@example.com', '5566772J', '$2a$10$wikYqklu1hy0sFFJ1Hu81eidrFoAiP5wNvvQUgD0t5plLmI86o6/W', '70056789', 'Fifth Avenue 147', 115);
 
 
 INSERT INTO Packs (name, description, price, active, duration) VALUES

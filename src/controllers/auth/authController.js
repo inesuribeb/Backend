@@ -1,4 +1,5 @@
 import clientController from "../client/clientController.js"
+import workerController from "../worker/workerController.js"
 import { verifyPassword } from "../../config/bcrypt.js";
 
 
@@ -7,17 +8,17 @@ async function registerClient(name, surname, email, phone, password, passwordCon
         throw new Error('Passwords do not match');
     }
  
-    const existingClient = await getByEmail(email);
+    const existingClient = await clientController.getByEmail(email);
     if(existingClient) {
         throw new Error('Email already exists');
     }
  
-    const existingDNI = await clientController.findOne({ where: { dni }});
+    const existingDNI = await clientController.findOneClient({ where: { dni }});
     if(existingDNI) {
         throw new Error('DNI already exists');
     }
  
-    const newClient = await createClient(
+    const newClient = await clientController.createClient(
         name, 
         surname, 
         email, 
@@ -33,7 +34,7 @@ async function registerClient(name, surname, email, phone, password, passwordCon
 
 
  async function loginClient(email, password) {
-    const client = await getByEmail(email);
+    const client = await clientController.getByEmail(email);
     if (!client) {
         throw new Error('Client not found');
     }
@@ -46,7 +47,22 @@ async function registerClient(name, surname, email, phone, password, passwordCon
     return client;
  }
 
+ async function loginWorker(email, password) {
+    const worker = await workerController.getByEmail(email);
+    if (!worker) {
+        throw new Error('Worker not found');
+    }
+ 
+    const isPasswordValid = await verifyPassword(password, worker.password);
+    if (!isPasswordValid) {
+        throw new Error('Invalid credentials');
+    }
+ 
+    return worker;
+ }
+
  export default{
     registerClient,
-    loginClient
+    loginClient,
+    loginWorker
 }

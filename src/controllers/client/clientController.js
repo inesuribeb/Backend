@@ -91,6 +91,12 @@ async function getByEmail(email) {
     return client;
  }
 
+ // Ver si ya existe un cliente con un criterio
+ async function findOneClient(criteria) {
+    const client = await clientModel.findOne(criteria);
+    return client;
+}
+
 
 // Crear cliente
 async function createClient(name, surname, email, phone, password, dni, address, country_id) {
@@ -164,6 +170,7 @@ export const functions = {
     showClients,
     getClientById,
     getByEmail,
+    findOneClient,
     createClient,
     updatePersonalData,
     removeClientProfile

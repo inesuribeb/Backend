@@ -31,6 +31,14 @@ async function getById(id){
     return worker; 
 }
 
+// Localizar un worker por email
+async function getByEmail(email) {
+    const worker = await workerModel.findOne({
+        where: { email },
+    });
+    return worker;
+ }
+
 // Crear trabajador
 async function createWorker(name, last_name, email, password, rol) {
     
@@ -89,6 +97,7 @@ async function deleteWorker(worker_id) {
 export const functions={
     getAll,
     getById,
+    getByEmail,
     createWorker,
     updateWorker,
     deleteWorker
