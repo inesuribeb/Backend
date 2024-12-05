@@ -1,0 +1,759 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "The Bike Country API",
+    "version": "1.0.0",
+    "description": "API for managing bike-related services including clients, workers, reservations, and packs."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3002",
+      "description": "Development server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "Client": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "surname": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "dni": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "country_id": {
+            "type": "integer"
+          }
+        }
+      },
+      "Worker": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "type": "string"
+          },
+          "rol": {
+            "type": "string",
+            "enum": ["founder", "admin", "worker"]
+          }
+        }
+      },
+      "Pack": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "duration": {
+            "type": "integer",
+            "description": "Duration in minutes"
+          }
+        }
+      },
+      "Reservation": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "integer"
+          },
+          "pack_id": {
+            "type": "integer"
+          },
+          "source_id": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "requested_dates": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "paths": {
+    "/client/api/clients": {
+      "get": {
+        "summary": "Get all clients",
+        "description": "Retrieves a list of all clients registered in the system. Requires valid authentication to access this resource.",
+        "tags": ["Clients"],
+        "responses": {
+          "200": {
+            "description": "List of clients retrieved successfully"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/client/api/clients/{id}": {
+      "get": {
+        "summary": "Get a specific client",
+        "description": "Retrieves detailed information about a specific client identified by their unique ID. Requires valid authentication to access this resource.",
+        "tags": ["Clients"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Client details retrieved successfully"
+          },
+          "404": {
+            "description": "Client not found"
+          }
+        }
+      }
+    },
+    "/client/api/clients/create": {
+      "post": {
+        "summary": "Create a new client",
+        "description": "Adds a new client to the system by providing the required client details in the request body. Requires valid authentication to perform this operation.",
+        "tags": ["Clients"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Client"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Client created successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/client/api/clients/{id}/update": {
+      "put": {
+        "summary": "Update a client",
+        "description": "Updates the details of an existing client identified by their unique ID. The request body should include the fields to be updated. Requires valid authentication to perform this operation.",
+        "tags": ["Clients"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Client"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Client updated successfully"
+          },
+          "404": {
+            "description": "Client not found"
+          }
+        }
+      }
+    },
+    "/client/api/clients/{id}/delete": {
+      "delete": {
+        "summary": "Delete a client",
+        "description": "Removes a client from the system using their unique ID. This action is irreversible. Requires valid authentication to perform this operation.",
+        "tags": ["Clients"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Client deleted successfully"
+          },
+          "404": {
+            "description": "Client not found"
+          }
+        }
+      }
+    },
+    "/worker/api/workers": {
+      "get": {
+        "summary": "Get all workers",
+        "description": "Retrieves a list of all workers registered in the system. Requires valid authentication to access this resource.",
+        "tags": ["Workers"],
+        "responses": {
+          "200": {
+            "description": "List of workers retrieved successfully"
+          }
+        }
+      }
+    },
+    "/worker/api/workers/{id}": {
+      "get": {
+        "summary": "Get a specific worker",
+        "description": "Retrieves detailed information about a specific worker identified by their unique ID. Requires valid authentication to access this resource.",
+        "tags": ["Workers"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Worker details retrieved successfully"
+          },
+          "404": {
+            "description": "Worker not found"
+          }
+        }
+      }
+    },
+    "/worker/api/workers/create": {
+      "post": {
+        "summary": "Create a new worker",
+        "description": "Adds a new worker to the system by providing the necessary details in the request body. Requires valid authentication to perform this operation.",
+        "tags": ["Workers"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Worker"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Worker created successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/worker/api/workers/{id}/update": {
+      "put": {
+        "summary": "Update a worker",
+        "description": "Updates the details of an existing worker identified by their unique ID. The request body should include the fields to be updated. Requires valid authentication to perform this operation.",
+        "tags": ["Workers"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Worker"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Worker updated successfully"
+          },
+          "404": {
+            "description": "Worker not found"
+          }
+        }
+      }
+    },
+    "/worker/api/workers/{id}/delete": {
+      "delete": {
+        "summary": "Delete a worker",
+        "description": "Removes a worker from the system using their unique ID. This action is irreversible. Requires valid authentication to perform this operation.",
+        "tags": ["Workers"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Worker deleted successfully"
+          },
+          "404": {
+            "description": "Worker not found"
+          }
+        }
+      }
+    },
+    "/reservations/api/reservations": {
+      "get": {
+        "summary": "Get all reservations",
+        "description": "Retrieves a list of all reservations in the system. Requires valid authentication to access this resource.",
+        "tags": ["Reservations"],
+        "responses": {
+          "200": {
+            "description": "List of reservations retrieved successfully"
+          }
+        }
+      }
+    },
+    "/reservations/api/reservations/{id}": {
+      "get": {
+        "summary": "Get a specific reservation",
+        "description": "Retrieves detailed information about a specific reservation identified by its unique ID. Requires valid authentication to access this resource.",
+        "tags": ["Reservations"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Reservation details retrieved successfully"
+          },
+          "404": {
+            "description": "Reservation not found"
+          }
+        }
+      }
+    },
+    "/reservations/api/reservations/create": {
+      "post": {
+        "summary": "Create a new reservation",
+        "description": "Creates a new reservation in the system by providing the required reservation details in the request body. Requires valid authentication to perform this operation.",
+        "tags": ["Reservations"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Reservation"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Reservation created successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/reservations/api/reservations/{id}/cancel": {
+      "put": {
+        "summary": "Cancel a reservation (client)",
+        "description": "Allows a client to cancel an existing reservation identified by its unique ID. Requires valid authentication and the client's authorization to cancel their own reservation.",
+        "tags": ["Reservations"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "type": "integer"
+                  },
+                  "pack_id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Reservation cancelled successfully"
+          },
+          "404": {
+            "description": "Reservation not found"
+          }
+        }
+      }
+    },
+    "/reservations/api/reservations/{id}/status": {
+      "put": {
+        "summary": "Change reservation status (admin)",
+        "description": "Allows an admin to update the status of an existing reservation identified by its unique ID. This can be used to mark a reservation as confirmed, canceled, or any other status as required. Requires admin authentication.",
+        "tags": ["Reservations"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "type": "integer"
+                  },
+                  "pack_id": {
+                    "type": "integer"
+                  },
+                  "newStatus": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Reservation status updated successfully"
+          },
+          "404": {
+            "description": "Reservation not found"
+          }
+        }
+      }
+    },
+    "/pack/api/packs": {
+      "get": {
+        "summary": "Get all packs",
+        "description": "Retrieves a list of all available packs in the system.",
+        "tags": ["Packs"],
+        "responses": {
+          "200": {
+            "description": "List of packs retrieved successfully"
+          }
+        }
+      }
+    },
+    "/pack/api/packs/{id}": {
+      "get": {
+        "summary": "Get a specific pack",
+        "description": "Retrieves detailed information about a specific pack identified by its unique ID.",
+        "tags": ["Packs"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pack details retrieved successfully"
+          },
+          "404": {
+            "description": "Pack not found"
+          }
+        }
+      }
+    },
+    "/pack/api/packs/create": {
+      "post": {
+        "summary": "Create a new pack",
+        "description": "Creates a new pack in the system by providing the necessary details in the request body. Requires valid authentication and proper authorization to perform this operation.",
+        "tags": ["Packs"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Pack"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Pack created successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/pack/api/packs/{id}/deactivate": {
+      "put": {
+        "summary": "Deactivate a pack",
+        "description": "Deactivates an existing pack identified by its unique ID. This action prevents the pack from being available for new bookings or sales. Requires valid authentication and proper authorization to perform this operation.",
+        "tags": ["Packs"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pack deactivated successfully"
+          },
+          "404": {
+            "description": "Pack not found"
+          }
+        }
+      }
+    },
+    "/client/api/clients/login": {
+      "post": {
+        "summary": "Client login",
+        "description": "Authenticates a client by providing their login credentials (email and password) in the request body. Upon successful authentication, a token is returned for further authorized requests.",
+        "tags": ["Authentication"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        }
+      }
+    },
+    "/client/api/clients/register": {
+      "post": {
+        "summary": "Client registration",
+        "description": "Registers a new client by providing the necessary personal details in the request body. Upon successful registration, the client will be able to log in and access the system.",
+        "tags": ["Authentication"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "surname": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "passwordConfirm": {
+                    "type": "string"
+                  },
+                  "dni": {
+                    "type": "string"
+                  },
+                  "address": {
+                    "type": "string"
+                  },
+                  "country_id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Registration successful"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/worker/api/workers/login": {
+      "post": {
+        "summary": "Worker login", 
+        "description": "Authenticates a worker by providing their login credentials (email and password) in the request body. Upon successful authentication, a token is returned for further authorized requests.",
+        "tags": ["Authentication"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        }
+      }
+    }
+  }
+}
+
