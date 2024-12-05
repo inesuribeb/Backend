@@ -129,7 +129,14 @@
         "tags": ["Clients"],
         "responses": {
           "200": {
-            "description": "List of clients retrieved successfully"
+            "description": "List of clients retrieved successfully",
+            "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Client"
+            }
+          }
+        }
           },
           "401": {
             "description": "Unauthorized"
@@ -154,7 +161,14 @@
         ],
         "responses": {
           "200": {
-            "description": "Client details retrieved successfully"
+            "description": "Client details retrieved successfully",
+            "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Client"
+            }
+          }
+        }
           },
           "404": {
             "description": "Client not found"
@@ -254,7 +268,14 @@
         "tags": ["Workers"],
         "responses": {
           "200": {
-            "description": "List of workers retrieved successfully"
+            "description": "List of workers retrieved successfully",
+            "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Worker"
+            }
+          }
+        }
           }
         }
       }
@@ -276,7 +297,14 @@
         ],
         "responses": {
           "200": {
-            "description": "Worker details retrieved successfully"
+            "description": "Worker details retrieved successfully",
+            "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Worker"
+            }
+          }
+        }
           },
           "404": {
             "description": "Worker not found"
@@ -376,7 +404,14 @@
         "tags": ["Reservations"],
         "responses": {
           "200": {
-            "description": "List of reservations retrieved successfully"
+            "description": "List of reservations retrieved successfully",
+            "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Reservation"
+            }
+          }
+        }
           }
         }
       }
@@ -398,7 +433,14 @@
         ],
         "responses": {
           "200": {
-            "description": "Reservation details retrieved successfully"
+            "description": "Reservation details retrieved successfully",
+            "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Reservation"
+            }
+          }
+        }
           },
           "404": {
             "description": "Reservation not found"
@@ -527,7 +569,14 @@
         "tags": ["Packs"],
         "responses": {
           "200": {
-            "description": "List of packs retrieved successfully"
+            "description": "List of packs retrieved successfully",
+            "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Pack"
+            }
+          }
+        }
           }
         }
       }
@@ -549,7 +598,14 @@
         ],
         "responses": {
           "200": {
-            "description": "Pack details retrieved successfully"
+            "description": "Pack details retrieved successfully",
+            "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Pack"
+            }
+          }
+        }
           },
           "404": {
             "description": "Pack not found"
