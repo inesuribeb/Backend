@@ -9,17 +9,53 @@ const verifyToken = (req, res) => {
     const token = authorization.replace("Bearer ","");
     return jwt.verify(token);
 }
-
-// Middleware para verificar los roles
-const checkRole = (allowedRoles) => async (req, res, next) => {
+export const verifyClient =  async (req, res, next) => {
     try {
-        const  client_id =req.params.id;
+        const client_id =req.params.id;
         const verified = verifyToken(req, res);
         if(verified.error) {
             return res.status(401).json({ error: "jwt token not correct" });
         }
-        
-        if((client_id !== verified.user_id)&& (!verified.rol || !allowedRoles.includes(verified.rol))) {
+        if(client_id != verified.user_id){
+            req.verified =false;
+            next();
+        }else{
+            req.verified=true;
+            next();
+
+        }
+       } catch (error) {
+        return res.status(401).json({ error: "jwt token not valid" });
+    }
+}
+export const verifyWorker =  async (req, res, next) => {
+    try {
+        const worker_id =req.params.id;
+        const verified = verifyToken(req, res);
+        if(verified.error) {
+            return res.status(401).json({ error: "jwt token not correct" });
+        }
+        if(worker_id != verified.worker_id){
+            req.verified =false;
+            next();
+        }else{
+            req.verified=true;
+            next();
+
+        }
+       } catch (error) {
+        return res.status(401).json({ error: "jwt token not valid" });
+    }
+}
+// Middleware para verificar los roles
+const checkRole = (allowedRoles) => async (req, res, next) => {
+    try {
+        const verified = verifyToken(req, res);
+        if(verified.error) {
+            return res.status(401).json({ error: "jwt token not correct" });
+        }
+        console.log(req.verified);
+        if((!req.verified)&& (!verified.rol || !allowedRoles.includes(verified.rol))) {
             return res.status(403).json({ error: "not allowed" });
         }
         

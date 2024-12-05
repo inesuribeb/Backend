@@ -35,11 +35,7 @@ async function registerClient(req, res) {
     try {
         const { email, password } = req.body;
         const client = await authController.loginClient(email, password);
-        const token = jwt.sign(
-            { user_id: client.user_id },
-            process.env.JWT_SECRET,
-            { expiresIn: '24h' }
-        );
+        const token = jwt.sign({ user_id: client.user_id, rol: "client" }, '24h' );
         res.json({
             success: true,
             token
@@ -63,8 +59,7 @@ async function registerClient(req, res) {
                 worker_id: worker.worker_id,
                 rol: worker.rol 
             },
-            process.env.JWT_SECRET,
-            { expiresIn: '24h' }
+            '24h' 
         );
         res.json({
             success: true,
