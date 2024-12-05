@@ -6,9 +6,9 @@ import { isWorker, verifyWorker, isAdmin } from "../controllers/middleware/authM
 const router = Router()
 
 router.get('/api/workers', isAdmin, workerApiController.getAllWorkers);
-router.get('/api/workers/:id', [verifyWorker, isAdmin], workerApiController.getWorkerById);
+router.get('/api/workers/:id', [verifyWorker, isWorker], workerApiController.getWorkerById);
 router.post('/api/workers/create', isAdmin, workerApiController.createWorkerAPI);
-router.put('/api/workers/:id/update', isWorker, workerApiController.updateWorkerAPI);
+router.put('/api/workers/:id/update', [verifyWorker, isWorker], workerApiController.updateWorkerAPI);
 router.delete('/api/workers/:id/delete', isAdmin, workerApiController.deleteWorkerAPI);
 
 router.post('/api/workers/login', authApiController.loginWorker);
