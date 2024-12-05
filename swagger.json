@@ -170,6 +170,9 @@
           }
         }
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Client not found"
           }
