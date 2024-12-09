@@ -22,7 +22,7 @@ Este proyecto constituye la lógica de negocio de una empresa de turismo premium
   - **JWT (JSON Web Tokens)**: Gestión de autenticación y seguridad.  
   - **Bcrypt**: Cifrado de contraseñas.  
   - **JavaScript**: Lenguaje principal para toda la lógica de negocio.
-  - 
+    
 ## ⬇️ **Instalación y Uso**  
 
 1. Clonar este repositorio:  
