@@ -55,7 +55,7 @@ Este proyecto constituye la lógica de negocio de una empresa de turismo premium
 
 ### **Clientes**  
 - `GET /clients`
-- `GET /clients/:id 
+- `GET /clients/:id`
 - `POST /clients`
 - `PUT /clients/:id` 
 - `DELETE /clients/:id` 
@@ -68,7 +68,7 @@ Este proyecto constituye la lógica de negocio de una empresa de turismo premium
 
 ### **Workers** 
 - `GET /workers`
-- `GET /workers/:id 
+- `GET /workers/:id`
 - `POST /workers`
 - `PUT /workers/:id` 
 - `DELETE /workers/:id`
