@@ -1,6 +1,6 @@
 # Backend para The Bike Country 🚴‍♂️  
 
-Este proyecto constituye la lógica de negocio de una empresa de turismo premium especializada en ciclismo. Su objetivo es gestionar datos relacionados con clientes, países, trabajadores, paquetes turísticos y fuentes de referencia, proporcionando una API JSON para ser consumida por el frontend.  
+Este proyecto constituye la lógica de negocio de una empresa de turismo premium especializada en ciclismo en Euskadi. Su objetivo es gestionar datos relacionados con clientes, trabajadores, paquetes turísticos y reservas, proporcionando una API JSON para ser consumida por el frontend.  
 
 ## 🔧 **Características del Proyecto**  
 - **Base de datos**:  
