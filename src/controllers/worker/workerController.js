@@ -66,6 +66,14 @@ async function createWorker(name, last_name, email, password, rol) {
     if(!worker){
         throw new Error('Worker not found');
     }
+
+    if (rol && !['admin', 'founder'].includes(rol)) {
+        throw new Error('Invalid role');
+    }
+
+    if (worker.rol === 'founder' && rol && rol !== 'founder') {
+        throw new Error('Founders cannot change their role');
+    }
    
     if (email !== worker.email) {
         const existingEmail = await workerModel.findOne({ where: { email }});

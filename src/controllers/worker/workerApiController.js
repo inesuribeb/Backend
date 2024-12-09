@@ -114,6 +114,14 @@ async function updateWorkerAPI(req, res) {
                 message: error.message
             });
         }
+
+        if (error.message === 'Founders cannot change their role' || 
+            error.message === 'Invalid role') {
+            return res.status(403).json({
+                success: false,
+                message: error.message
+            });
+        }
  
         res.status(500).json({
             success: false,
