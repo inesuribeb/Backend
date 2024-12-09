@@ -49,21 +49,36 @@ Este proyecto constituye la lógica de negocio de una empresa de turismo premium
 ## 🚀 **Endpoints Principales**  
 
 ### **Autenticación**  
-- `POST /auth/login`  
-- `POST /auth/register`  
+- `POST /client/login`
+- `POST /worker/login`  
+- `POST /register`  
 
 ### **Clientes**  
-- `GET /clients`  
+- `GET /clients`
+- `GET /clients/:id 
 - `POST /clients`
 - `PUT /clients/:id` 
 - `DELETE /clients/:id` 
 
-### **Paquetes**  
-- `GET /packs`  
+### **Packs**  
+- `GET /packs`
+- `GET /packs/:id`  
 - `POST /packs`
-- `PUT /packs/:id` - Actualizar paquete (solo admin)  
-- `DELETE /packs/:id` - Eliminar paquete (solo admin)   
+- `PUT /packs/:id`
 
+### **Workers** 
+- `GET /workers`
+- `GET /workers/:id 
+- `POST /workers`
+- `PUT /workers/:id` 
+- `DELETE /workers/:id`
+
+### **Reservations** 
+- `GET /reservations`
+- `GET /reservations/:id`  
+- `POST /reservations`
+- `PUT /reservations/:id/cancel`
+- `PUT /reservations/:id/status`
 
 ---
 
