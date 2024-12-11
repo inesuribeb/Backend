@@ -36,11 +36,16 @@ Este proyecto constituye la lógica de negocio de una empresa de turismo premium
 
 3. Configurar variables de entorno:
    ```bash
-   DB_HOST=
-   DB_USER=
-   DB_PASSWORD=
-   DB_NAME=
-   JWT_SECRET=
+    DB_HOST=the_bike_country_db
+    DB_PORT=3309
+    APP_HOST=the_bike_country
+    APP_PORT=3002
+
+    DB_USER=ines
+    DB_PASSWORD=1234
+    DB_DATABASE=the_bike_country
+    DB_ROOT_PASSWORD=1234
+    JWT_SECRET=1234
 
 4. Iniciar el servidor:
    ```bash
