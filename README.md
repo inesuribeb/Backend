@@ -54,36 +54,36 @@ Este proyecto constituye la lógica de negocio de una empresa de turismo premium
 ## 🚀 **Endpoints Principales**  
 
 ### **Autenticación**  
-- `POST /client/login`
-- `POST /worker/login`  
-- `POST /register`  
+- `POST /client/api/clients/login`
+- `POST /worker/api/workerslogin`  
+- `POST /client/api/clients//register`  
 
 ### **Clientes**  
-- `GET /clients`
-- `GET /clients/:id`
-- `POST /clients`
-- `PUT /clients/:id` 
-- `DELETE /clients/:id` 
+- `GET client/api/clients`
+- `GET client/api/clients/:id`
+- `POST client/api/clients/create`
+- `PUT client/api/clients/:id/update` 
+- `DELETE client/api/clients/:id/delete` 
 
 ### **Packs**  
-- `GET /packs`
-- `GET /packs/:id`  
-- `POST /packs`
-- `PUT /packs/:id`
+- `GET pack/api/packs`
+- `GET pack/api/packs/:id`  
+- `POST pack/api/packs/create`
+- `PUT pack/api/packs/:id/deactivate`
 
 ### **Workers** 
-- `GET /workers`
-- `GET /workers/:id`
-- `POST /workers`
-- `PUT /workers/:id` 
-- `DELETE /workers/:id`
+- `GET worker/api/workers`
+- `GET worker/api/workers/:id`
+- `POST worker/api/workers`
+- `PUT worker/api/workers/:id/update` 
+- `DELETE worker/api/workers/:id/delete`
 
 ### **Reservations** 
-- `GET /reservations`
-- `GET /reservations/:id`  
-- `POST /reservations`
-- `PUT /reservations/:id/cancel`
-- `PUT /reservations/:id/status`
+- `GET reservation/api/reservations`
+- `GET reservation/api/reservations/:id`  
+- `POST reservation/api/reservations/create`
+- `PUT reservation/api/reservations/:id/cancel`
+- `PUT reservation/api/reservations/:id/status`
 
 ---
 
