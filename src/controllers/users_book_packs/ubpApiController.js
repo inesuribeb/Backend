@@ -2,7 +2,14 @@ import ubpController from "./ubpController.js"
 
 async function getAllReservations(req, res) {
     try {
-        const reservations = await ubpController.showReservations();
+        const user = req.user;
+        let reservations
+        if (user.rol == "client"){
+            reservations = await ubpController.showReservationsForClient(user.user_id);
+
+        }
+        else{
+            reservations = await ubpController.showReservations();}
         res.status(200).json({
             success: true,
             data: reservations

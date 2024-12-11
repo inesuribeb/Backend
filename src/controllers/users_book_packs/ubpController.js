@@ -19,6 +19,23 @@ async function showReservations() {
  
     return cleanReservations(reservations);
  }
+
+ async function showReservationsForClient(user_id) {
+    const reservations = await userBooksModel.findAll({
+        where: {user_id},
+        include: [
+            { model: clientModel, as: 'Client' },
+            { model: packModel, as: 'Pack' },
+            { model: refSourcesModel, as: 'Source' }
+        ]
+    });
+ 
+    if (!reservations || reservations.length === 0) {
+        throw new Error('No reservations found');
+    }
+ 
+    return cleanReservations(reservations);
+ }
  
  function cleanReservations(reservations) {
     return reservations.map(reservation => ({
@@ -235,6 +252,7 @@ async function updateReservationStatus(id, user_id, pack_id, newStatus) {
 
  export const functions={
     showReservations,
+    showReservationsForClient,
     getReservationById,
     createReservation,
     cancelReservation,
