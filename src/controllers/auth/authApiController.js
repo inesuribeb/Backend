@@ -38,7 +38,8 @@ async function registerClient(req, res) {
         const token = jwt.sign({ user_id: client.user_id, rol: "client" }, '24h' );
         res.json({
             success: true,
-            token
+            token,
+            user_id
         });
     } catch (error) {
         const status = error.message.includes('not found') || 
