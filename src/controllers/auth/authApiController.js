@@ -39,7 +39,7 @@ async function registerClient(req, res) {
         res.json({
             success: true,
             token,
-            user_id
+            user_id: client.user_id
         });
     } catch (error) {
         const status = error.message.includes('not found') || 
