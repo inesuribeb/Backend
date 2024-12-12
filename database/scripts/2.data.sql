@@ -235,11 +235,11 @@ INSERT INTO Clients (name, surname, email, dni, password, phone, address, countr
 
 
 INSERT INTO Packs (name, description, price, active, duration) VALUES
-    ('Starter Pack', 'Paquete básico para nuevos usuarios. Incluye lo esencial para empezar.', 1999, 1, 30),
-    ('Premium Pack', 'Paquete avanzado con funciones premium y soporte prioritario.', 4999, 1, 90),
-    ('Family Pack', 'Ideal para familias. Incluye múltiples cuentas y descuentos en servicios adicionales.', 7999, 1, 180),
-    ('Travel Pack', 'Paquete diseñado para viajeros frecuentes. Incluye acceso a herramientas y recursos útiles.', 2999, 1, 60),
-    ('Ultimate Pack', 'Paquete completo con acceso ilimitado a todas las funcionalidades y soporte 24/7.', 9999, 1, 365);
+    ('From France to Navarra', 'Cross the Pyrenees from French charm to Navarra’s vibrant culture.', 1999, 1, 30),
+    ('From San Sebastian to St Jean Pied de Port', 'Ride from coastal elegance to Pyrenean charm.', 4999, 1, 90),
+    ('Guipuzcoa tour', 'Explore lush landscapes and coastal beauty.', 7999, 1, 180),
+    ('Euskadi Scenic Ride', 'Discover Euskadi’s stunning views and vibrant culture.', 2999, 1, 60),
+    ('From Gernika to the Basque Coast', 'Journey from historic Gernika to breathtaking shores.', 9999, 1, 365);
 
 
 INSERT INTO Users_book_Packs
