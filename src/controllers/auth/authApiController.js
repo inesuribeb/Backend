@@ -20,6 +20,7 @@ async function registerClient(req, res) {
             data: result
         });
     } catch (error) {
+        console.error(error);
         let status = 500;
         if (error.message.includes('exists')) status = 409;
         if (error.message.includes('match')) status = 400;

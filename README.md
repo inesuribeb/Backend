@@ -85,6 +85,9 @@ Este proyecto constituye la lógica de negocio de una empresa de turismo premium
 - `PUT reservation/api/reservations/:id/cancel`
 - `PUT reservation/api/reservations/:id/status`
 
+### **Countries** 
+- `GET countries/api/countries`
+
 ---
 
 ## 🔜 **Próximos Pasos**  
