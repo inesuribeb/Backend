@@ -42,15 +42,18 @@ async function showReservationById(req, res) {
 
  // Crear reserva
  async function createReservationAPI(req, res) {
+    
     try {
         const { user_id, pack_id, source_id, message, requested_dates } = req.body;
  
         if (!user_id || !pack_id || !source_id || !requested_dates) {
+
             return res.status(400).json({
                 success: false,
                 message: 'Required fields: user_id, pack_id, source_id and requested_dates'
             });
         }
+
  
         const newReservation = await ubpController.createReservation(
             user_id,
@@ -59,22 +62,28 @@ async function showReservationById(req, res) {
             message,
             requested_dates
         );
+
+        
+
  
         res.status(201).json({
             success: true,
             data: newReservation
         });
+
  
     } catch (error) {
+
         if (error.message === 'Client not found' || 
             error.message === 'Pack not found' || 
             error.message === 'Source not found') {
+
             return res.status(404).json({
                 success: false,
                 message: error.message
             });
         }
- 
+
         res.status(500).json({
             success: false,
             message: error.message
