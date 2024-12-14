@@ -84,12 +84,30 @@ function cleanClientWithCountry(client) {
 
 // Localizar un cliente por email
 async function getByEmail(email) {
-    const client = await clientModel.findOne({
-        where: { email },
-        include: countryModel
-    });
-    return client;
- }
+    try {
+        // Agregamos un log para ver qué email estamos buscando
+        console.log('Buscando email:', email);
+
+        const client = await clientModel.findOne({
+            where: { 
+                email: email.trim().toLowerCase() // Normalizamos el email
+            },
+            include: countryModel,
+            logging: true // Esto mostrará la consulta SQL exacta
+        });
+
+        // Log para ver qué devolvió la consulta
+        console.log('Resultado de búsqueda:', client ? 'Cliente encontrado' : 'Cliente no encontrado');
+        if (client) {
+            console.log('Email encontrado:', client.email);
+        }
+
+        return client;
+    } catch (error) {
+        console.error('Error en getByEmail:', error);
+        throw error;
+    }
+}
 
  // Ver si ya existe un cliente con un criterio
  async function findOneClient(criteria) {
@@ -99,33 +117,83 @@ async function getByEmail(email) {
 
 
 // Crear cliente
-async function createClient(name, surname, email, phone, password, dni, address, country_id) {
+// async function createClient(name, surname, email, phone, password, dni, address, country_id) {
     
-    const existingClient = await clientModel.findOne({ where: { email } });
-    if (existingClient) {
-        throw new Error('Email already exists');
-    }
+//     const existingClient = await clientModel.findOne({ where: { email } });
+//     if (existingClient) {
+//         throw new Error('Email already exists');
+//     }
   
-    const existingDNI = await clientModel.findOne({ where: { dni } });
-    if (existingDNI) {
-        throw new Error('DNI already exists');
+//     const existingDNI = await clientModel.findOne({ where: { dni } });
+//     if (existingDNI) {
+//         throw new Error('DNI already exists');
+//     }
+ 
+//     const hashedPassword = await bcrypt.hash(password, 10);
+ 
+//     const newClient = await clientModel.create({
+//         name,
+//         surname, 
+//         email,
+//         phone,
+//         password: hashedPassword,
+//         dni,
+//         address,
+//         country_id
+//     });
+ 
+//     return newClient;
+//  }
+
+async function createClient(name, surname, email, phone, password, dni, address, country_id) {
+    try {
+        // Validar que tenemos todos los campos requeridos
+        if (!name || !surname || !email || !phone || !password || !dni || !address || !country_id) {
+            console.error('Datos recibidos:', { name, surname, email, phone, dni, address, country_id });
+            throw new Error('Todos los campos son requeridos');
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Convertir country_id a número si es string
+        const countryIdNum = parseInt(country_id, 10);
+        
+        const clientData = {
+            name: name.trim(),
+            surname: surname.trim(),
+            email: email.trim().toLowerCase(),
+            phone: phone.trim(),
+            password: hashedPassword,
+            dni: dni.trim(),
+            address: address.trim(),
+            country_id: countryIdNum,
+            register_date: new Date()
+        };
+
+        console.log('Intentando crear cliente con datos:', {
+            ...clientData,
+            password: '[PROTECTED]'
+        });
+
+        const newClient = await clientModel.create(clientData, {
+            logging: console.log // Para ver la consulta SQL
+        });
+
+        console.log('Cliente creado:', {
+            ...newClient.toJSON(),
+            password: '[PROTECTED]'
+        });
+
+        return newClient;
+    } catch (error) {
+        console.error('Error específico al crear cliente:', {
+            name: error.name,
+            message: error.message,
+            stack: error.stack
+        });
+        throw error;
     }
- 
-    const hashedPassword = await bcrypt.hash(password, 10);
- 
-    const newClient = await clientModel.create({
-        name,
-        surname, 
-        email,
-        phone,
-        password: hashedPassword,
-        dni,
-        address,
-        country_id
-    });
- 
-    return newClient;
- }
+}
 
 // Actualizar cliente
  async function updatePersonalData(user_id, name, surname, email, phone, password, dni, address, country_id) {

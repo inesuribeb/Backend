@@ -3,34 +3,72 @@ import workerController from "../worker/workerController.js"
 import { verifyPassword } from "../../config/bcrypt.js";
 
 
+// async function registerClient(name, surname, email, phone, password, passwordConfirm, dni, address, country_id) {
+//     if(password !== passwordConfirm) {
+//         throw new Error('Passwords do not match');
+//     }
+ 
+//     const existingClient = await clientController.getByEmail(email);
+//     if(existingClient) {
+//         throw new Error('Email already exists');
+//     }
+ 
+//     const existingDNI = await clientController.findOneClient({ where: { dni }});
+//     if(existingDNI) {
+//         throw new Error('DNI already exists');
+//     }
+ 
+//     const newClient = await clientController.createClient(
+//         name, 
+//         surname, 
+//         email, 
+//         phone,
+//         password,
+//         dni,
+//         address,
+//         country_id
+//     );
+ 
+//     return newClient;
+//  }
+
 async function registerClient(name, surname, email, phone, password, passwordConfirm, dni, address, country_id) {
-    if(password !== passwordConfirm) {
-        throw new Error('Passwords do not match');
+    try {
+        if(password !== passwordConfirm) {
+            throw new Error('Passwords do not match');
+        }
+
+        console.log('Datos recibidos en registerClient:', {
+            name, surname, email, phone, dni, address, country_id
+        });
+     
+        const existingClient = await clientController.getByEmail(email);
+        if(existingClient) {
+            throw new Error('Email already exists');
+        }
+     
+        const existingDNI = await clientController.findOneClient({ where: { dni }});
+        if(existingDNI) {
+            throw new Error('DNI already exists');
+        }
+     
+        const newClient = await clientController.createClient(
+            name, 
+            surname, 
+            email, 
+            phone,
+            password,
+            dni,
+            address,
+            country_id
+        );
+     
+        return newClient;
+    } catch (error) {
+        console.error('Error en registerClient:', error);
+        throw error;
     }
- 
-    const existingClient = await clientController.getByEmail(email);
-    if(existingClient) {
-        throw new Error('Email already exists');
-    }
- 
-    const existingDNI = await clientController.findOneClient({ where: { dni }});
-    if(existingDNI) {
-        throw new Error('DNI already exists');
-    }
- 
-    const newClient = await clientController.createClient(
-        name, 
-        surname, 
-        email, 
-        phone,
-        password,
-        dni,
-        address,
-        country_id
-    );
- 
-    return newClient;
- }
+}
 
 
  async function loginClient(email, password) {
