@@ -6,6 +6,7 @@ import swaggerDocument from "../swagger.json" assert { type: 'json' };
 
 
 const app = express();
+app.use(cors());
 
 app.use(cors());
 //meter aqui lo de pug lsd linesd spp.set de github
