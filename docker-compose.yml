@@ -15,6 +15,8 @@ services:
       - ./database/scripts:/docker-entrypoint-initdb.d:ro
       - ./database/conf/mycustom.cnf:/etc/mysql/conf.d/custom.cnf:ro
       - /var/lib/mysql
+    networks:
+      - bikecountry_network
   
   backend:
     build: .
@@ -27,3 +29,14 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
+    environment:
+      - VIRTUAL_HOST=api.bikecountry.inesuribe.es
+      - LETSENCRYPT_HOST=api.bikecountry.inesuribe.es
+      - LETSENCRYPT_EMAIL=inesuribeb@gmail.com
+    networks:
+      - bikecountry_network
+      - nginx-proxy
+networks:
+  bikecountry_network:
+  nginx-proxy:
+    external: true

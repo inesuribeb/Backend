@@ -6,6 +6,7 @@ import swaggerDocument from "../swagger.json" assert { type: 'json' };
 
 
 const app = express();
+app.use(cors());
 
 //meter aqui lo de pug lsd linesd spp.set de github
 
@@ -16,7 +17,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use("/",router);
 
-app.use(cors);
+// app.use(cors());
 
 app.listen(3000,()=>console.log(`Estamos conectados en el puerto 3002`));
 
